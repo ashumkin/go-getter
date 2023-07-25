@@ -940,12 +940,17 @@ func testHttpServer(t *testing.T) net.Listener {
 	mux.HandleFunc("/meta-subdir-glob", testHttpHandlerMetaSubdirGlob)
 	mux.HandleFunc("/range", testHttpHandlerRange)
 	mux.HandleFunc("/no-range", testHttpHandlerNoRange)
+	mux.HandleFunc("/yaml", testHttpHandlerYaml)
 
 	var server http.Server
 	server.Handler = mux
 	go server.Serve(ln)
 
 	return ln
+}
+
+func testHttpHandlerYaml(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("yaml:\n  key1: value1\n  key2: value2\n  key3:\n    subkey3_1: subvalue3_1\n    subkey3_2: subvalue3_2\n"))
 }
 
 func testHttpHandlerExpectHeader(w http.ResponseWriter, r *http.Request) {
