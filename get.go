@@ -64,14 +64,17 @@ func init() {
 		Netrc: true,
 	}
 
+	configServerGetter := NewConfigServerGetter()
+
 	Getters = map[string]Getter{
-		"file":  new(FileGetter),
-		"git":   new(GitGetter),
-		"gcs":   new(GCSGetter),
-		"hg":    new(HgGetter),
-		"s3":    new(S3Getter),
-		"http":  httpGetter,
-		"https": httpGetter,
+		"file":         new(FileGetter),
+		"git":          new(GitGetter),
+		"gcs":          new(GCSGetter),
+		"hg":           new(HgGetter),
+		"s3":           new(S3Getter),
+		"configserver": configServerGetter,
+		"http":         httpGetter,
+		"https":        httpGetter,
 	}
 }
 
